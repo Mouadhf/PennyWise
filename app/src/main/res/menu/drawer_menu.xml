@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/action_add"
+            android:title="@string/add">
+            <menu>
+                <item
+                    android:id="@+id/action_add_transaction"
+                    android:title="@string/add_transaction" />
+                <item
+                    android:id="@+id/action_add_budget"
+                    android:title="@string/add_budget" />
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/action_manage"
+            android:title="@string/manage">
+            <menu>
+                <item
+                    android:id="@+id/action_manage_expenses"
+                    android:title="@string/manage_expenses" />
+                <item
+                    android:id="@+id/action_manage_budgets"
+                    android:title="@string/manage_budgets" />
+                <item
+                    android:id="@+id/action_categories"
+                    android:title="@string/categories" />
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/action_reports"
+            android:title="@string/reports" />
+
+        <item
+            android:id="@+id/action_export"
+            android:title="@string/export_data" />
+
+        <item
+            android:id="@+id/action_history"
+            android:title="@string/history" />
+    </group>
+
+    <group android:id="@+id/group_secondary">
+        <item
+            android:id="@+id/action_settings"
+            android:title="@string/settings" />
+
+        <item
+            android:id="@+id/action_help"
+            android:title="@string/help" />
+
+        <item
+            android:id="@+id/action_about"
+            android:title="@string/about" />
+    </group>
+</menu>

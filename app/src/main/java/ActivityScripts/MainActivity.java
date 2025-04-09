@@ -1,11 +1,11 @@
 package ActivityScripts;
 import com.example.myapplication.R;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
@@ -36,8 +36,11 @@ public class MainActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(MainActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             } else {
-                // Dummy login logic - replace with real authentication
-                if (email.equals("user@example.com") && password.equals("123456")) {
+                // Dummy login logic - allow original user OR the mock signed-up user
+                boolean originalUser = email.equals("user@example.com") && password.equals("123456");
+                boolean signedUpUser = email.equals("signup@example.com") && password.equals("signup");
+
+                if (originalUser || signedUpUser) {
                     Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                     // Redirect to the main app activity
                     Intent intent = new Intent(MainActivity.this, PennyWiseActivity.class);
@@ -51,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Sign-up button listener
         signupButton.setOnClickListener(view -> {
-            // Navigate to SignUpActivity (you can create this)
-            Toast.makeText(MainActivity.this, "Navigate to Sign-Up screen", Toast.LENGTH_SHORT).show();
-            // startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            // Navigate to SignUpActivity
+            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+            startActivity(intent);
         });
 
         // Forgot password listener
