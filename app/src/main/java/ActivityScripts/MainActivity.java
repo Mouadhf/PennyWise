@@ -8,11 +8,18 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pennywise.APIbackend.BackEndClient;
+import com.example.pennywise.APIbackend.BackEndClientService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class MainActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class MainActivity extends AppCompatActivity {
+    private BackEndClientService backEndClientService;
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
 
@@ -36,19 +43,9 @@ public class MainActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(MainActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             } else {
-                // Dummy login logic - allow original user OR the mock signed-up user
-                boolean originalUser = email.equals("user@example.com") && password.equals("123456");
-                boolean signedUpUser = email.equals("signup@example.com") && password.equals("signup");
+                backEndClientService = BackEndClient.getClient().create(BackEndClientService.class);
 
-                if (originalUser || signedUpUser) {
-                    Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                    // Redirect to the main app activity
-                    Intent intent = new Intent(MainActivity.this, PennyWiseActivity.class);
-                    startActivity(intent);
-                    finish(); // Close MainActivity after successful login
-                } else {
-                    Toast.makeText(MainActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-                }
+                login(email, password);
             }
         });
 
@@ -63,6 +60,33 @@ public class MainActivity extends AppCompatActivity {
         forgotPasswordText.setOnClickListener(view -> {
             Toast.makeText(MainActivity.this, "Forgot password clicked", Toast.LENGTH_SHORT).show();
             // You can navigate to a ForgotPasswordActivity here
+        });
+    }
+    private void login(String name, String password) {
+        backEndClientService.login(name, password).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    boolean loginSuccess = response.body();
+
+                    if (loginSuccess) {
+                        Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, PennyWiseActivity.class);
+                        intent.putExtra("username", name);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

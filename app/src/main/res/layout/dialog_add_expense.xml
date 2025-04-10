@@ -13,14 +13,12 @@
         android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/edittext_date"
+        android:id="@+id/edittext_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Date"
-        android:focusable="false" 
-        android:clickable="true"
-        android:inputType="none" 
+        android:hint="Title"
+        android:inputType="text"
         android:minHeight="48dp" />
 
     <EditText
@@ -36,7 +34,16 @@
         android:id="@+id/edittext_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Amount (USD)"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edittext_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Expense Limit"
         android:inputType="numberDecimal"
         android:minHeight="48dp" />
 

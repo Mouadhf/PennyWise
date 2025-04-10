@@ -33,6 +33,11 @@
             android:name="ActivityScripts.PennyWiseActivity"
             android:exported="false" />
 
+        <!-- Declare ExpenseActivity -->
+        <activity
+            android:name="com.pennywise.pw.client.ExpenseActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
